@@ -19,8 +19,11 @@
             max-width: 750px;
             margin: auto;
         }
-        /* Stile Logo e Intestazione */
+        /* Stile Logo e Intestazione perfettamente centrati */
         .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -506,7 +509,7 @@
                 <strong>Pomeriggio (16:30):</strong> Free Tour del centro di Santa Marta (già prenotato).
             </div>
             <div class="btn-container">
-                <a href="https://maps.google.com/?q=Quinta+de+San+Pedro+Alejandrino" target="_blank" class="btn btn-map">📍 Mappa Quinta</a>
+                <a href="https://maps.google.com/?q=Quinta+de+San+Pedro+Aleandrino" target="_blank" class="btn btn-map">📍 Mappa Quinta</a>
                 <a href="https://www.museobolivariano.org.co/" target="_blank" class="btn btn-info">📖 Info Sito Storico</a>
                 <a href="https://www.civitatis.com/it/santa-marta/free-tour-santa-marta/" target="_blank" class="btn btn-info">📖 Dettagli Free Tour</a>
             </div>
@@ -523,7 +526,7 @@
         <div class="card-title">🧱 Cartagena (22 - 24 Ago)</div>
 
         <div class="transport-box">
-            🛬 <strong>Volo Final:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
+            🛬 <strong>Volo Finale:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
         </div>
 
         <div class="day-section">
@@ -652,7 +655,7 @@
     setInterval(updateClocks, 1000);
     updateClocks();
     
-    // Mostra subito il tasso storico impostato como base e prova ad aggiornarlo via rete
+    // Mostra subito il tasso storico impostato come base e prova ad aggiornarlo via rete
     updateRateText(false);
     fetchLiveExchangeRate();
 </script>
