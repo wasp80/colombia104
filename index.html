@@ -115,7 +115,6 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             padding: 25px;
-            margin-bottom: 25px;
             border-left: 6px solid #e67e22;
             position: relative;
         }
@@ -131,15 +130,47 @@
             align-items: center;
             gap: 10px;
         }
-        /* Box Logistica e Trasporti */
-        .transport-box {
-            background-color: #f1f5f9;
-            border: 1px dashed #cbd5e1;
-            border-radius: 6px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            font-size: 0.95em;
+
+        /* STRUTTURA CONNETTORE GRAFICO */
+        .travel-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            padding: 25px 0;
         }
+        /* La linea verticale che unisce le due città */
+        .travel-connector::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #cbd5e1 30%, #94a3b8 50%, #cbd5e1 70%);
+            z-index: 1;
+        }
+        /* Il box/badge del viaggio centrato sulla linea */
+        .travel-badge {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            border: 2px solid #3b82f6;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 0.88em;
+            font-weight: bold;
+            color: #1e3a8a;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            max-width: 85%;
+        }
+        .travel-badge.attention {
+            border-color: #ef4444;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
         /* Sezione Giorni Interni */
         .day-section {
             border-left: 2px solid #e2e8f0;
@@ -193,7 +224,6 @@
             background-color: #dcfce7;
             color: #15803d;
         }
-        /* Pulsanti interni alla card dei consigli */
         .btn-white {
             background-color: #ffffff;
             color: #1e3a8a;
@@ -238,27 +268,19 @@
     <!-- Grafica della Scheda Consigli e Strumenti -->
     <div class="modern-tips">
         <div class="modern-tips-title">💡 Strumenti per il Viaggio</div>
-
         <div class="tips-grid">
-            <!-- Colonna 1: Spostamenti (Link App Store iPhone) -->
             <div class="tips-col">
                 <div class="tips-subtitle">🚗 Spostamenti Urbani</div>
-                <div class="tips-content">
-                    Usa solo app tracciate a Bogotà, Medellín e Cartagena per muoverti in sicurezza. Scaricale dall'App Store:
-                </div>
+                <div class="tips-content">Usa solo app tracciate a Bogotà, Medellín e Cartagena per muoverti in sicurezza. Scaricale dall'App Store:</div>
                 <div class="btn-container">
                     <a href="https://apps.apple.com/us/app/uber-request-a-ride/id368677368" target="_blank" class="btn btn-white">🍏 Uber</a>
                     <a href="https://apps.apple.com/us/app/cabify/id476087442" target="_blank" class="btn btn-white">🍏 Cabify</a>
                     <a href="https://apps.apple.com/it/app/indrive-save-on-city-rides/id780125801" target="_blank" class="btn btn-white">🍏 inDrive</a>
                 </div>
             </div>
-
-            <!-- Colonna 2: Tour -->
             <div class="tips-col">
                 <div class="tips-subtitle">🎟️ Attività & Free Tour</div>
-                <div class="tips-content">
-                    Link rapidi per prenotare o verificare i dettagli delle escursioni guidate nelle varie città.
-                </div>
+                <div class="tips-content">Link rapidi per prenotare o verificare i dettagli delle escursioni guidate nelle varie città.</div>
                 <div class="btn-container">
                     <a href="https://www.civitatis.com/it/colombia/" target="_blank" class="btn btn-white">Civitatis</a>
                     <a href="https://www.guruwalk.com/it/colombia" target="_blank" class="btn btn-white">GuruWalk</a>
@@ -268,8 +290,7 @@
     </div>
 
     <!-- WIDGET INFO UTILI: METEO & CAMBIO VALUTA -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6 text-slate-800">
-        <!-- Scheda Fusi Orari Dividis (Bogotà e Roma) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4 text-slate-800">
         <div class="bg-gradient-to-br from-slate-50 to-blue-50 border border-blue-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
             <div>
                 <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-2">Confronto Fuso Orario</span>
@@ -287,15 +308,12 @@
             <p class="text-[11px] text-slate-500 font-medium text-center">Media Agosto a Bogotà: 14°C • Nuvoloso / Pioggia</p>
         </div>
 
-        <!-- Scheda Cambio Valuta Aggiornata con Switch e API Real-Time -->
         <div class="bg-gradient-to-br from-slate-50 to-emerald-50 border border-emerald-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
             <div>
                 <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider block mb-1">Convertitore Calcolatore</span>
                 <div class="flex items-center gap-2 mb-2">
                     <h3 id="converter-title" class="text-lg font-bold text-slate-900">Cambio Valuta (EUR → COP)</h3>
-                    <button onclick="toggleCurrencyDirection()" class="p-1 rounded-md bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors cursor-pointer text-sm font-bold" title="Inverti cambio">
-                        🔄
-                    </button>
+                    <button onclick="toggleCurrencyDirection()" class="p-1 rounded-md bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors cursor-pointer text-sm font-bold" title="Inverti cambio">🔄</button>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="relative rounded-md shadow-sm w-32">
@@ -314,14 +332,31 @@
         </div>
     </div>
 
-    <!-- BOGOTÀ -->
+    <!-- BOX ATTENZIONE IMMIGRAZIONE RIMPICCIOLITO -->
+    <div class="bg-amber-50 border border-amber-400 rounded-lg p-3 mb-6 shadow-sm flex items-center gap-2.5">
+        <span class="text-xl">⚠️</span>
+        <div class="text-amber-900 text-xs md:text-sm font-medium leading-tight">
+            <strong>Importante:</strong> 
+            <a href="https://apps.migracioncolombia.gov.co/pre-registro/en/DatosViaje?fbclid=IwVERDUARTYEJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeB9R1rF-9sbRnHilFosBm9V0Mh5HjS0x5_qA05H5K_e9hP9pWuKc9ndJ5DRQ_aem_L0z-lsCpTXO0kHSmqkCaUQ" target="_blank" class="font-bold underline text-amber-900 hover:text-amber-700">Fare registrazione sul sito dell'immigrazione colombiana</a>
+        </div>
+    </div>
+
+
+    <!-- TIMELINE DI VIAGGIO CON CONNETTORI -->
+
+    <!-- CONNETTORE INIZIALE: ROMA -> BOGOTÀ -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            ✈️ Volo Internazionale da Roma (FCO) | Partenza ore 10:50 ➔ Arrivo a Bogotà ore 13:50 <br>
+            <span class="text-xs font-normal text-slate-500">🔄 Scalo intermedio a Barcellona</span>
+        </div>
+    </div>
+
+    <!-- 1. BOGOTÀ -->
     <div class="card" id="bogota">
         <div class="card-title">📍 Bogotà (10 - 13 Ago)</div>
-
-        <div class="transport-box">
-            🛬 <strong>Arrivo Volo:</strong> 10-08 ore 17:45 | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=GHL+Hotel+Tequendama+Bogota" target="_blank">GHL Hotel Tequendama Bogota</a>
-        </div>
-
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=GHL+Hotel+Tequendama+Bogota" target="_blank" class="text-blue-600 underline">GHL Hotel Tequendama Bogota</a></div>
+        
         <div class="day-section">
             <div class="day-title">Giorno 1 (10-08)</div>
             <div class="day-content">Sistemazione hotel e serata in città.</div>
@@ -335,7 +370,7 @@
             <div class="day-content">
                 <strong>Mattina (09:00 - 13:00):</strong> Giro a piedi autonomo de La Candelaria (Plaza de Bolívar, Cattedrale)<span class="lp-tag">lonley p.56</span> ed entrata al Museo Botero (gratuito e vicinissimo)<span class="lp-tag">lonley p.51</span>. Pranzo rapido in centro.<br>
                 <strong>Pomeriggio (14:00):</strong> Visita guidata al Barrio Egipto.<br>
-                <span class="text-orange-600 font-bold">Attenzione il tour va confermato il giorno prima</span><br>
+                <span class="text-red-500 font-bold">⚠️ Il tour va confermato il giorno prima</span><br>
                 A seguire, verso le 16:30, tour della Street Art tra i vicoli bassi de La Candelaria.<span class="lp-tag">lonley p.54</span>
             </div>
             <div class="btn-container">
@@ -362,8 +397,8 @@
         <div class="day-section" style="border-left: 2px dashed #cbd5e1; background-color: #fafafa; padding: 10px 15px; margin-left: 5px; border-radius: 4px;">
             <div class="day-title" style="color: #2980b9;">🔄 Giorno 3 (12-08) - Opzione B (Miniera di Sale)</div>
             <div class="day-content">
-                <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla spettacrale Cattedrale di Sale di Zipaquirá, una chiesa sotterranea ricavata all'interno di una miniera di sale attiva. Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<span class="lp-tag">lonley p.78</span><br>
-                <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord per la passeggiata e la cena tra i vicoli inglesi di Quinta Camacho e Chapinero (saltando Paloquemao e San Felipe).
+                <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla Cattedrale di Sale di Zipaquirá.<span class="lp-tag">lonley p.78</span> Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<br>
+                <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord per passeggiata and cena a Quinta Camacho e Chapinero.
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Catedral+de+Sal+Zipaquira" target="_blank" class="btn btn-map">📍 Mappa Miniera</a>
@@ -373,13 +408,17 @@
         </div>
     </div>
 
-    <!-- LETICIA -->
+    <!-- CONNETTORE 1: BOGOTÀ -> LETICIA -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            ✈️ Volo per Leticia | 13-08 ore 08:55
+        </div>
+    </div>
+
+    <!-- 2. LETICIA -->
     <div class="card" id="leticia">
         <div class="card-title">🌳 Leticia (13 - 15 Ago)</div>
-
-        <div class="transport-box">
-            ✈️ <strong>Volo Leticia:</strong> 13-08 ore 08:55 | 🛫 <strong>Volo Salento:</strong> 15-08 ore 17:45 | 🏨 <strong>Hotel:</strong> <a href="https://maps.app.goo.gl/V5XFwBFVw5Mq7BJo8" target="_blank">La Ceiba Amazonas</a>
-        </div>
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.app.goo.gl/V5XFwBFVw5Mq7BJo8" target="_blank" class="text-blue-600 underline">La Ceiba Amazonas</a></div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (13-08)</div>
@@ -409,17 +448,21 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 3 (15-08)</div>
-            <div class="day-content">Colazione, ritorno a Leticia con visita della città, poi trasferimento in aeroporto per la partenza delle 17:45.</div>
+            <div class="day-content">Colazione, ritorno a Leticia con visita della città, poi trasferimento in aeroporto.</div>
         </div>
     </div>
 
-    <!-- SALENTO -->
+    <!-- CONNETTORE 2: LETICIA -> SALENTO -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            🛫 Volo per Salento (via Bogotà/Pereira) | 15-08 ore 17:45
+        </div>
+    </div>
+
+    <!-- 3. SALENTO -->
     <div class="card" id="salento">
         <div class="card-title">☕ Salento (15 - 17 Ago)</div>
-
-        <div class="transport-box">
-            🚌 <strong>Bus Medellín:</strong> 17-08 ore 22:30 (Notturno) | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+El+Mirador+del+Cocora+Salento" target="_blank">Hotel El Mirador del Cocora</a>
-        </div>
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+El+Mirador+del+Cocora+Salento" target="_blank" class="text-blue-600 underline">Hotel El Mirador del Cocora</a></div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (16-08)</div>
@@ -443,27 +486,23 @@
         </div>
     </div>
 
-    <!-- MEDELLÍN -->
+    <!-- CONNETTORE 3: SALENTO -> MEDELLÍN -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            🚌 Bus Notturno per Medellín | 17-08 ore 22:30 (Arrivo 18-08 ore 05:00)
+        </div>
+    </div>
+
+    <!-- 4. MEDELLÍN -->
     <div class="card" id="medellin">
         <div class="card-title">🚡 Medellín (18 - 20 Ago)</div>
-
-        <div class="transport-box">
-            🚌 <strong>Arrivo:</strong> 18-08 ore 05:00 | 🛫 <strong>Volo Santa Marta:</strong> 20-08 ore 06:43 | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank">Landmark Hotel</a>
-        </div>
-
-        <!-- Box di Attenzione Bagaglio da Stiva -->
-        <div class="bg-amber-50 border-l-4 border-amber-500 text-amber-900 p-3.5 rounded-r-md text-sm font-medium mb-5 flex items-start gap-2.5 shadow-xs">
-            <span class="text-base leading-none mt-0.5">⚠️</span>
-            <div>
-                <strong class="font-bold">Attenzione:</strong> va aggiunto il bagaglio da stiva alla prenotazione aerea.
-            </div>
-        </div>
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank" class="text-blue-600 underline">Landmark Hotel</a></div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (18-08)</div>
             <div class="day-content">
                 <strong>Mattina:</strong> Centro Storico, Piazza Botero e il Museo de Antioquia.<span class="lp-tag">lonley p.90</span><br>
-                <strong>Pomeriggio:</strong> Verso le 13:00 metro fino a San Javier per il tour della Comuna 13 delle 14:00. A seguire, cabinovia (Metrocable) e rientro verso El Poblado o Laureles per la sera.
+                <strong>Pomeriggio:</strong> Verso le 13:00 metro fino a San Javier per il tour della Comuna 13 delle 14:00. A seguire, cabinovia (Metrocable) e rientro.
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Plaza+Botero+Medellin" target="_blank" class="btn btn-map">📍 Mappa Centro</a>
@@ -475,7 +514,7 @@
         <div class="day-section">
             <div class="day-title">Giorno 2 (19-08)</div>
             <div class="day-content">
-                Tutto il giorno: gita a Guatapé. I bus partono dal Terminal del Norte (Metro Caribe) con Sotra San Vicente o Sootransviate ogni 20-30 min. Chiedi di scendere a "La Piedra" per la roccia (El Peñol), poi tuk-tuk fino al villaggio.<span class="lp-tag">lonley p.106</span>
+                Tutto il giorno: gita a Guatapé. I bus partono dal Terminal del Norte (Metro Caribe) ogni 20-30 min. Scendere a "La Piedra" per la roccia (El Peñol), poi tuk-tuk fino al villaggio.<span class="lp-tag">lonley p.106</span>
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Piedra+del+Penol" target="_blank" class="btn btn-map">📍 Mappa El Peñol</a>
@@ -485,17 +524,22 @@
         </div>
     </div>
 
-    <!-- SANTA MARTA -->
+    <!-- CONNETTORE 4: MEDELLÍN -> SANTA MARTA -->
+    <div class="travel-connector">
+        <div class="travel-badge attention">
+            🛫 Volo per Santa Marta | 20-08 ore 06:43<br>
+            <span class="text-xs text-red-600">⚠️ Nota: Ricordati di aggiungere il bagaglio da stiva alla prenotazione!</span>
+        </div>
+    </div>
+
+    <!-- 5. SANTA MARTA -->
     <div class="card" id="santamarta">
         <div class="card-title">🏖️ Santa Marta (20 - 22 Ago)</div>
-
-        <div class="transport-box">
-            🚗 <strong>Spostamento:</strong> Trasporto privato per Cartagena il 22-08 (orario da decidere) | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Senda+Watapuy+Santa+Marta" target="_blank">Senda Watapuy</a>
-        </div>
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Senda+Watapuy+Santa+Marta" target="_blank" class="text-blue-600 underline">Senda Watapuy</a></div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (20-08)</div>
-            <div class="day-content"><strong>Tutto il giorno:</strong> Mare a Bahía Concha (Parco Tayrona) raggiungibile in taxi o tramite escursione programmata.<span class="lp-tag">lonley p.227</span></div>
+            <div class="day-content"><strong>Tutto il giorno:</strong> Mare a Bahía Concha (Parco Tayrona) raggiungibile in taxi o tramite escursione.<span class="lp-tag">lonley p.227</span></div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Bahia+Concha+Santa+Marta" target="_blank" class="btn btn-map">📍 Mappa Bahía Concha</a>
                 <a href="https://parquesnacionales.gov.co/parques/parco-nacional-natural-tayrona/" target="_blank" class="btn btn-info">📖 Info Tayrona</a>
@@ -514,24 +558,23 @@
                 <a href="https://www.civitatis.com/it/santa-marta/free-tour-santa-marta/" target="_blank" class="btn btn-info">📖 Dettagli Free Tour</a>
             </div>
         </div>
+    </div>
 
-        <div class="day-section">
-            <div class="day-title">Giorno 3 (22-08)</div>
-            <div class="day-content"><strong>Mattina:</strong> partenza per Cartagena con trasporto privato.</div>
+    <!-- CONNETTORE 5: SANTA MARTA -> CARTAGENA -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            🚗 Trasporto Privato per Cartagena | 22-08 (Orario flessibile, arrivo in mattinata)
         </div>
     </div>
 
-    <!-- CARTAGENA -->
+    <!-- 6. CARTAGENA -->
     <div class="card" id="cartagena">
         <div class="card-title">🧱 Cartagena (22 - 24 Ago)</div>
-
-        <div class="transport-box">
-            🛬 <strong>Volo Finale:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
-        </div>
+        <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank" class="text-blue-600 underline">Hotel Don Pedro De Heredia</a></div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (22-08)</div>
-            <div class="day-content"><strong>Pomeriggio:</strong> Città Murata meridionale (Torre del Reloj, Plaza Bolívar) e tramonto spettacolare al Café del Mar.<span class="lp-tag">lonley p.213</span> Serata in centro storico.</div>
+            <div class="day-content"><strong>Pomeriggio:</strong> Città Murata meridionale (Torre del Reloj, Plaza Bolívar) e tramonto al Café del Mar.<span class="lp-tag">lonley p.213</span> Serata in centro storico.</div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Cafe+del+Mar+Cartagena" target="_blank" class="btn btn-map">📍 Mappa Café del Mar</a>
                 <a href="https://www.cafedelmarcartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Locale</a>
@@ -542,7 +585,7 @@
         <div class="day-section">
             <div class="day-title">Giorno 2 (23-08)</div>
             <div class="day-content">
-                <strong>Mattina:</strong> Visita del rione San Diego (possibilità di free tour con Civitatis).<br>
+                <strong>Mattina:</strong> Visita del rione San Diego.<br>
                 <strong>Pomeriggio:</strong> Esplorazione del rione Getsemaní.<span class="lp-tag">lonley p.214</span><br>
                 <strong>Sera:</strong> Cena e movida in Plaza de La Trinidad.
             </div>
@@ -554,7 +597,7 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 3 (24-08)</div>
-            <div class="day-content"><strong>Mattina:</strong> Visita alle fortificazioni del Castillo de San Felipe.<span class="lp-tag">lonley p.208</span> Nel pomeriggio, trasferimento e partenza alle ore 17:25.</div>
+            <div class="day-content"><strong>Mattina:</strong> Visita al Castillo de San Felipe.<span class="lp-tag">lonley p.208</span> Pomeriggio: trasferimento in aeroporto per il volo finale delle ore 17:25.</div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Castillo+de+San+Felipe+de+Barajas" target="_blank" class="btn btn-map">📍 Mappa Castello</a>
                 <a href="https://fortificacionescartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Fortezza</a>
@@ -567,37 +610,28 @@
 <!-- Script logici per Orologi e Convertitore -->
 <script>
     let isEurToCop = true;
-    let exchangeRate = 3835; // Tasso storico di sicurezza aggiornato
+    let exchangeRate = 3835;
 
     function updateClocks() {
-        const timeOptions = {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        };
-
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
         const bogotaFormatter = new Intl.DateTimeFormat('it-IT', { ...timeOptions, timeZone: 'America/Bogota' });
         document.getElementById('bogota-clock').innerText = bogotaFormatter.format(new Date());
-
         const romaFormatter = new Intl.DateTimeFormat('it-IT', { ...timeOptions, timeZone: 'Europe/Rome' });
         document.getElementById('roma-clock').innerText = romaFormatter.format(new Date());
     }
     
-    // Recupero asincrono del tasso di cambio ufficiale
     async function fetchLiveExchangeRate() {
         try {
             const response = await fetch('https://open.er-api.com/v6/latest/EUR');
             if (!response.ok) throw new Error('Errore di rete');
             const data = await response.json();
-            
             if (data && data.rates && data.rates.COP) {
                 exchangeRate = Math.round(data.rates.COP);
                 updateRateText(true);
                 calculateCurrency();
             }
         } catch (error) {
-            console.error("Impossibile recuperare il tasso in tempo reale, utilizzo valore storico.", error);
+            console.error("Impossibile recuperare il tasso in tempo reale.", error);
             updateRateText(false);
             calculateCurrency();
         }
@@ -605,39 +639,29 @@
 
     function updateRateText(isLive) {
         const textEl = document.getElementById('exchange-rate-text');
-        if (isLive) {
-            textEl.innerHTML = `Tasso ufficiale aggiornato: 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP`;
-        } else {
-            textEl.innerHTML = `Tasso indicativo (storico): 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP`;
-        }
+        textEl.innerHTML = isLive ? `Tasso ufficiale aggiornato: 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP` : `Tasso indicativo (storico): 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP`;
     }
 
     function calculateCurrency() {
         const input = document.getElementById('currency-input');
         const output = document.getElementById('currency-output');
-        
         let value = parseFloat(input.value);
         if (isNaN(value) || value < 0) {
             output.innerText = isEurToCop ? "0 COP" : "0,00 €";
             return;
         }
-        
         if (isEurToCop) {
-            const converted = Math.round(value * exchangeRate);
-            output.innerText = converted.toLocaleString('it-IT') + " COP";
+            output.innerText = Math.round(value * exchangeRate).toLocaleString('it-IT') + " COP";
         } else {
-            const converted = value / exchangeRate;
-            output.innerText = converted.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+            output.innerText = (value / exchangeRate).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
         }
     }
 
     function toggleCurrencyDirection() {
         isEurToCop = !isEurToCop;
-        
         const title = document.getElementById('converter-title');
         const inputSymbol = document.getElementById('input-symbol');
         const inputEl = document.getElementById('currency-input');
-        
         if (isEurToCop) {
             title.innerText = "Cambio Valuta (EUR → COP)";
             inputSymbol.innerText = "€";
@@ -647,15 +671,11 @@
             inputSymbol.innerText = "COP";
             inputEl.value = "50000";
         }
-        
         calculateCurrency();
     }
 
-    // Configurazione dei timer e caricamenti iniziali
     setInterval(updateClocks, 1000);
     updateClocks();
-    
-    // Mostra subito il tasso storico impostato come base e prova ad aggiornarlo via rete
     updateRateText(false);
     fetchLiveExchangeRate();
 </script>
