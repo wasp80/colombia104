@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colombia 104</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+        /* Stile Logo e Intestazione */
+        .header-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #1e3a8a;
+            margin: 0;
+            font-size: 2.2em;
+        }
+        /* Menu di Navigazione Rapida */
+        .nav-menu {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .nav-link {
+            margin: 0 6px;
+            text-decoration: none;
+            color: #1e3a8a;
+            font-weight: bold;
+            font-size: 0.95em;
+            display: inline-block;
+            padding: 4px 8px;
+        }
+        /* Grafica Scheda Consigli e Strumenti */
+        .modern-tips {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+        }
+        .modern-tips-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .tips-col {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .tips-subtitle {
+            font-weight: bold;
+            font-size: 1.05em;
+            margin-bottom: 8px;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tips-content {
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: #f1f5f9;
+        }
+        /* Stile Card Principale */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #e67e22;
+            position: relative;
+        }
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        /* Box Logistica e Trasporti */
+        .transport-box {
+            background-color: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        /* Sezione Giorni Interni */
+        .day-section {
+            border-left: 2px solid #e2e8f0;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            margin-left: 5px;
+        }
+        .day-section:last-of-type {
+            margin-bottom: 0;
+        }
+        .day-title {
+            color: #e67e22;
+            font-size: 1.15em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .day-content {
+            font-size: 0.98em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .day-content ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        /* Contenitore Pulsanti Affiancati */
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            margin-bottom: 5px;
+        }
+        /* Stile dei Pulsanti Ottimizzati per Mobile */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 0.88em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-map {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+        .btn-info {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        /* Pulsanti interni alla card dei consigli */
+        .btn-white {
+            background-color: #ffffff;
+            color: #1e3a8a;
+        }
+        .btn-white:hover {
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-container">
+        <img src="assets/logo.jpg" alt="Colombia 104 Logo" class="logo-img">
+        <h1>Colombia 104</h1>
+    </div>
+
+    <!-- Menu Navigazione Rapida -->
+    <div class="nav-menu">
+        <a href="#bogota" class="nav-link">Bogotà</a> |
+        <a href="#leticia" class="nav-link">Leticia</a> |
+        <a href="#salento" class="nav-link">Salento</a> |
+        <a href="#medellin" class="nav-link">Medellín</a> |
+        <a href="#santamarta" class="nav-link">Santa Marta</a> |
+        <a href="#cartagena" class="nav-link">Cartagena</a>
+    </div>
+
+    <!-- Grafica della Scheda Consigli e Strumenti -->
+    <div class="modern-tips">
+        <div class="modern-tips-title">💡 Strumenti per il Viaggio</div>
+
+        <div class="tips-grid">
+            <!-- Colonna 1: Spostamenti (Link App Store iPhone) -->
+            <div class="tips-col">
+                <div class="tips-subtitle">🚗 Spostamenti Urbani</div>
+                <div class="tips-content">
+                    Usa solo app tracciate a Bogotà, Medellín e Cartagena per muoverti in sicurezza. Scaricale dall'App Store:
+                </div>
+                <div class="btn-container">
+                    <a href="https://apps.apple.com/us/app/uber-request-a-ride/id368677368" target="_blank" class="btn btn-white">🍏 Uber</a>
+                    <a href="https://apps.apple.com/us/app/cabify/id476087442" target="_blank" class="btn btn-white">🍏 Cabify</a>
+                    <a href="https://apps.apple.com/it/app/indrive-save-on-city-rides/id780125801" target="_blank" class="btn btn-white">🍏 inDrive</a>
+                </div>
+            </div>
+
+            <!-- Colonna 2: Tour -->
+            <div class="tips-col">
+                <div class="tips-subtitle">🎟️ Attività & Free Tour</div>
+                <div class="tips-content">
+                    Link rapidi per prenotare o verificare i dettagli delle escursioni guidate nelle varie città.
+                </div>
+                <div class="btn-container">
+                    <a href="https://www.civitatis.com/it/colombia/" target="_blank" class="btn btn-white">Civitatis</a>
+                    <a href="https://www.guruwalk.com/it/colombia" target="_blank" class="btn btn-white">GuruWalk</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOGOTÀ -->
+    <div class="card" id="bogota">
+        <div class="card-title">📍 Bogotà (10 - 13 Ago)</div>
+
+        <div class="transport-box">
+            🛬 <strong>Arrivo Volo:</strong> 10-08 ore 17:45 | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=GHL+Hotel+Tequendama+Bogota" target="_blank">GHL Hotel Tequendama Bogota</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (10-08)</div>
+            <div class="day-content">Sistemazione hotel e serata in città.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=GHL+Hotel+Tequendama+Bogota" target="_blank" class="btn btn-map">📍 Mappa Hotel</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (11-08)</div>
+            <div class="day-content">
+                <strong>Mattina (09:00 - 13:00):</strong> Giro a piedi autonomo de La Candelaria (Plaza de Bolívar, Cattedrale) ed entrata al Museo Botero (gratuito e vicinissimo). Pranzo rapido in centro.<br>
+                <strong>Pomeriggio (14:00):</strong> Visita guidata al Barrio Egipto.<br>
+                A seguire, verso le 16:30, tour della Street Art tra i vicoli bassi de La Candelaria.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Museo+Botero+Bogota" target="_blank" class="btn btn-map">📍 Mappa Botero</a>
+                <a href="https://www.banrepcultural.org/bogota/museo-botero" target="_blank" class="btn btn-info">📖 Info Museo</a>
+                <a href="https://www.colombia.travel/en/bogota/la-candelaria-neighborhood" target="_blank" class="btn btn-info">📖 Info Candelaria</a>
+                <a href="https://www.opendemocracy.net/en/democraciaabierta/barrio-egipto-breaking-borders-bogota-colombia/" target="_blank" class="btn btn-info">📖 Info Barrio Egipto</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (12-08) - Opzione A (Mercato e Arte)</div>
+            <div class="day-content">
+                <strong>Mattina (08:30):</strong> Taxi per immergersi nei colori e nella frutta esotica del Mercato di Paloquemao.<br>
+                <strong>Pomeriggio:</strong> Spostamento definitivo a Nord. Visita alle gallerie d'arte del Barrio San Felipe e, a seguire, passeggiata/cena tra i locali storici e i negozi di Quinta Camacho e Chapinero.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Plaza+de+Mercado+Paloquemao" target="_blank" class="btn btn-map">📍 Mappa Paloquemao</a>
+                <a href="https://www.bogotadc.travel/es/atractivos/plazas-mercado/plaza-mercado-paloquemao" target="_blank" class="btn btn-info">📖 Info Mercato</a>
+                <a href="https://www.artnexus.com/en/news/603fe3b570be79116c4c5b3a/san-felipe-art-district-bogota" target="_blank" class="btn btn-info">📖 Info San Felipe</a>
+            </div>
+        </div>
+
+        <div class="day-section" style="border-left: 2px dashed #cbd5e1; background-color: #fafafa; padding: 10px 15px; margin-left: 5px; border-radius: 4px;">
+            <div class="day-title" style="color: #2980b9;">🔄 Giorno 3 (12-08) - Opzione B (Miniera di Sale)</div>
+            <div class="day-content">
+                <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla spettacolare Cattedrale di Sale di Zipaquirá, una chiesa sotterranea ricavata all'interno di una miniera di sale attiva. Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<br>
+                <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord per la passeggiata e la cena tra i vicoli inglesi di Quinta Camacho e Chapinero (saltando Paloquemao e San Felipe).
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Catedral+de+Sal+Zipaquira" target="_blank" class="btn btn-map">📍 Mappa Miniera</a>
+                <a href="https://www.catedraldesal.gov.co/" target="_blank" class="btn btn-info">📖 Sito Miniera</a>
+                <a href="https://maps.google.com/?q=Quinta+Camacho+Bogota" target="_blank" class="btn btn-map">📍 Mappa Quinta Camacho</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LETICIA -->
+    <div class="card" id="leticia">
+        <div class="card-title">🌳 Leticia (13 - 15 Ago)</div>
+
+        <div class="transport-box">
+            ✈️ <strong>Volo Leticia:</strong> 13-08 ore 08:55 | 🛫 <strong>Volo Salento:</strong> 15-08 ore 17:45 | 🏨 <strong>Hotel:</strong> <a href="https://maps.app.goo.gl/V5XFwBFVw5Mq7BJo8" target="_blank">La Ceiba Amazonas</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (13-08)</div>
+            <div class="day-content">Pranzo, camminata sull'Isola Mocagua, avvistamento dei delfini rosa, cena e camminata notturna nella foresta.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Isla+Mocagua" target="_blank" class="btn btn-map">📍 Mappa Mocagua</a>
+                <a href="https://www.comunidadmocagua.co/" target="_blank" class="btn btn-info">📖 Info Comunità</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (14-08)</div>
+            <div class="day-content">
+                Colazione e partenza per Altamira:
+                <ul>
+                    <li>Camminata nella giungla del ceiba gigante</li>
+                    <li>Pranzo tradizionale</li>
+                    <li>Visita al lago del loto amazzonico (Victoria Amazonica)</li>
+                    <li>Ritorno a Mocagua e cena</li>
+                </ul>
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Leticia+Amazonas" target="_blank" class="btn btn-map">📍 Mappa Leticia</a>
+                <a href="https://www.britannica.com/plant/Victoria-amazonica" target="_blank" class="btn btn-info">📖 Info Ninfea Gigante</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (15-08)</div>
+            <div class="day-content">Colazione, ritorno a Leticia con visita della città, poi trasferimento in aeroporto per la partenza delle 17:45.</div>
+        </div>
+    </div>
+
+    <!-- SALENTO -->
+    <div class="card" id="salento">
+        <div class="card-title">☕ Salento (15 - 17 Ago)</div>
+
+        <div class="transport-box">
+            🚌 <strong>Bus Medellín:</strong> 17-08 ore 22:30 (Notturno) | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+El+Mirador+del+Cocora+Salento" target="_blank">Hotel El Mirador del Cocora</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (16-08)</div>
+            <div class="day-content">Arrivo verso mezzanotte del giorno prima. Mattina: tour della Valle del Cocora. Non occorre prenotare prima, le jeep si prendono dalla piazza centrale (consigliato l'operatore Gran Colombia Tour).</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Valle+del+Cocora" target="_blank" class="btn btn-map">📍 Mappa Cocora</a>
+                <a href="https://www.grancolombiatours.com/" target="_blank" class="btn btn-info">📖 Info Valle</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (17-08)</div>
+            <div class="day-content">Mattina: Il Mirador, a seguire visita del borgo e di Calle Real. Pomeriggio: Tour in una Finca Cafetera tradizionale.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Mirador+de+Salento" target="_blank" class="btn btn-map">📍 Mappa Mirador</a>
+                <a href="https://www.coffeeaxis.org/" target="_blank" class="btn btn-info">📖 Storia del Caffè</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDELLÍN -->
+    <div class="card" id="medellin">
+        <div class="card-title">🚡 Medellín (18 - 20 Ago)</div>
+
+        <div class="transport-box">
+            🚌 <strong>Arrivo:</strong> 18-08 ore 05:00 | 🛫 <strong>Volo Santa Marta:</strong> 20-08 ore 06:43 | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank">Landmark Hotel</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (18-08)</div>
+            <div class="day-content">
+                <strong>Mattina:</strong> Centro Storico, Piazza Botero e il Museo de Antioquia.<br>
+                <strong>Pomeriggio:</strong> Verso le 13:00 metro fino a San Javier per il tour della Comuna 13 delle 14:00. A seguire, cabinovia (Metrocable) e rientro verso El Poblado o Laureles per la sera.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Plaza+Botero+Medellin" target="_blank" class="btn btn-map">📍 Mappa Centro</a>
+                <a href="https://www.museodeantioquia.co/" target="_blank" class="btn btn-info">📖 Museo de Antioquia</a>
+                <a href="https://www.medellin.travel/" target="_blank" class="btn btn-info">📖 Info Comuna 13</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (19-08)</div>
+            <div class="day-content">
+                Tutto il giorno: gita a Guatapé. I bus partono dal Terminal del Norte (Metro Caribe) con Sotra San Vicente o Sootransviate ogni 20-30 min. Chiedi di scendere a "La Piedra" per la roccia (El Peñol), poi tuk-tuk fino al villaggio.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Piedra+del+Penol" target="_blank" class="btn btn-map">📍 Mappa El Peñol</a>
+                <a href="https://www.piedradelpenol.co/" target="_blank" class="btn btn-info">📖 Info Roccia</a>
+                <a href="https://www.guatape-antioquia.gov.co/" target="_blank" class="btn btn-info">📖 Info Guatapé</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SANTA MARTA -->
+    <div class="card" id="santamarta">
+        <div class="card-title">🏖️ Santa Marta (20 - 22 Ago)</div>
+
+        <div class="transport-box">
+            🚗 <strong>Spostamento:</strong> Trasporto privato per Cartagena il 22-08 (orario da decidere) | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Senda+Watapuy+Santa+Marta" target="_blank">Senda Watapuy</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (20-08)</div>
+            <div class="day-content">Tutto il giorno: Mare a Bahía Concha (Parco Tayrona) raggiungibile in taxi o tramite escursione programmata.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Bahia+Concha+Santa+Marta" target="_blank" class="btn btn-map">📍 Mappa Bahía Concha</a>
+                <a href="https://parquesnacionales.gov.co/parques/parco-nacional-natural-tayrona/" target="_blank" class="btn btn-info">📖 Info Tayrona</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (21-08)</div>
+            <div class="day-content">
+                <strong>Mattina:</strong> Quinta de San Pedro Alejandrino (oppure mare a Taganga/Playa Grande).<br>
+                <strong>Pomeriggio (16:30):</strong> Free Tour del centro di Santa Marta (già prenotato).
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Quinta+de+San+Pedro+Alejandrino" target="_blank" class="btn btn-map">📍 Mappa Quinta</a>
+                <a href="https://www.museobolivariano.org.co/" target="_blank" class="btn btn-info">📖 Info Sito Storico</a>
+                <a href="https://www.civitatis.com/it/santa-marta/free-tour-santa-marta/" target="_blank" class="btn btn-info">📖 Dettagli Free Tour</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (22-08)</div>
+            <div class="day-content">Mattina: partenza per Cartagena con trasporto privato.</div>
+        </div>
+    </div>
+
+    <!-- CARTAGENA -->
+    <div class="card" id="cartagena">
+        <div class="card-title">🧱 Cartagena (22 - 24 Ago)</div>
+
+        <div class="transport-box">
+            🛫 <strong>Volo Finale:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 1 (22-08)</div>
+            <div class="day-content">Pomeriggio: Città Murata meridionale (Torre del Reloj, Plaza Bolívar) e tramonto spettacolare al Café del Mar. Serata in centro storico.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Cafe+del+Mar+Cartagena" target="_blank" class="btn btn-map">📍 Mappa Café del Mar</a>
+                <a href="https://www.cafedelmarcartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Locale</a>
+                <a href="https://www.cartagenadeindias.travel/" target="_blank" class="btn btn-info">📖 Guida Città Murata</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 2 (23-08)</div>
+            <div class="day-content">
+                <strong>Mattina:</strong> Visita del rione San Diego (possibilità di free tour con Civitatis).<br>
+                <strong>Pomeriggio:</strong> Esplorazione del rione Getsemaní.<br>
+                <strong>Sera:</strong> Cena e movida in Plaza de La Trinidad.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Plaza+de+la+Trinidad+Cartagena" target="_blank" class="btn btn-map">📍 Mappa Trinidad</a>
+                <a href="https://www.civitatis.com/it/cartagena-delle-indie/" target="_blank" class="btn btn-info">📖 Free Tour San Diego</a>
+            </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (24-08)</div>
+            <div class="day-content"><strong>Mattina:</strong> Visita alle fortificazioni del Castillo de San Felipe. Nel pomeriggio, trasferimento e partenza alle ore 17:25.</div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Castillo+de+San+Felipe+de+Barajas" target="_blank" class="btn btn-map">📍 Mappa Castello</a>
+                <a href="https://fortificacionescartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Fortezza</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
