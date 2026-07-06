@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colombia 104</title>
+    <!-- Caricamento Tailwind CSS tramite CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -196,6 +198,20 @@
         .btn-white:hover {
             background-color: #f8fafc;
         }
+        /* Elemento grafico per i riferimenti Lonely Planet */
+        .lp-tag {
+            display: inline-block;
+            font-style: italic;
+            font-size: 0.78em;
+            font-weight: 600;
+            background-color: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -248,6 +264,53 @@
         </div>
     </div>
 
+    <!-- WIDGET INFO UTILI: METEO & CAMBIO VALUTA -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6 text-slate-800">
+        <!-- Scheda Fusi Orari Dividis (Bogotà e Roma) -->
+        <div class="bg-gradient-to-br from-slate-50 to-blue-50 border border-blue-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-2">Confronto Fuso Orario</span>
+                <div class="grid grid-cols-2 gap-4 border-b border-blue-100 pb-2 mb-2 text-center">
+                    <div class="border-r border-blue-100 pr-2">
+                        <p class="text-xs font-bold text-slate-500 uppercase">🇨🇴 Bogotà</p>
+                        <div id="bogota-clock" class="text-xl font-black tracking-tight text-blue-900 my-0.5">--:--:--</div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 uppercase">🇮🇹 Roma</p>
+                        <div id="roma-clock" class="text-xl font-black tracking-tight text-blue-900 my-0.5">--:--:--</div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-500 font-medium text-center">Media Agosto a Bogotà: 14°C • Nuvoloso / Pioggia</p>
+        </div>
+
+        <!-- Scheda Cambio Valuta Aggiornata con Switch e API Real-Time -->
+        <div class="bg-gradient-to-br from-slate-50 to-emerald-50 border border-emerald-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider block mb-1">Convertitore Calcolatore</span>
+                <div class="flex items-center gap-2 mb-2">
+                    <h3 id="converter-title" class="text-lg font-bold text-slate-900">Cambio Valuta (EUR → COP)</h3>
+                    <button onclick="toggleCurrencyDirection()" class="p-1 rounded-md bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors cursor-pointer text-sm font-bold" title="Inverti cambio">
+                        🔄
+                    </button>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="relative rounded-md shadow-sm w-32">
+                        <input type="number" id="currency-input" value="1" min="0" class="w-full font-bold text-slate-800 bg-white border border-slate-300 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-center" oninput="calculateCurrency()">
+                        <div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+                            <span id="input-symbol" class="text-xs text-slate-400 font-bold">€</span>
+                        </div>
+                    </div>
+                    <span class="text-slate-400 font-bold text-xl">➔</span>
+                    <div class="flex-1">
+                        <span id="currency-output" class="text-xl font-black text-emerald-700 block">... COP</span>
+                    </div>
+                </div>
+            </div>
+            <p id="exchange-rate-text" class="text-[11px] text-slate-400 font-medium mt-2">Caricamento tasso di cambio ufficiale...</p>
+        </div>
+    </div>
+
     <!-- BOGOTÀ -->
     <div class="card" id="bogota">
         <div class="card-title">📍 Bogotà (10 - 13 Ago)</div>
@@ -267,9 +330,10 @@
         <div class="day-section">
             <div class="day-title">Giorno 2 (11-08)</div>
             <div class="day-content">
-                <strong>Mattina (09:00 - 13:00):</strong> Giro a piedi autonomo de La Candelaria (Plaza de Bolívar, Cattedrale) ed entrata al Museo Botero (gratuito e vicinissimo). Pranzo rapido in centro.<br>
+                <strong>Mattina (09:00 - 13:00):</strong> Giro a piedi autonomo de La Candelaria (Plaza de Bolívar, Cattedrale)<span class="lp-tag">lonley p.56</span> ed entrata al Museo Botero (gratuito e vicinissimo)<span class="lp-tag">lonley p.51</span>. Pranzo rapido in centro.<br>
                 <strong>Pomeriggio (14:00):</strong> Visita guidata al Barrio Egipto.<br>
-                A seguire, verso le 16:30, tour della Street Art tra i vicoli bassi de La Candelaria.
+                <span class="text-orange-600 font-bold">Attenzione il tour va confermato il giorno prima</span><br>
+                A seguire, verso le 16:30, tour della Street Art tra i vicoli bassi de La Candelaria.<span class="lp-tag">lonley p.54</span>
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Museo+Botero+Bogota" target="_blank" class="btn btn-map">📍 Mappa Botero</a>
@@ -282,8 +346,8 @@
         <div class="day-section">
             <div class="day-title">Giorno 3 (12-08) - Opzione A (Mercato e Arte)</div>
             <div class="day-content">
-                <strong>Mattina (08:30):</strong> Taxi per immergersi nei colori e nella frutta esotica del Mercato di Paloquemao.<br>
-                <strong>Pomeriggio:</strong> Spostamento definitivo a Nord. Visita alle gallerie d'arte del Barrio San Felipe e, a seguire, passeggiata/cena tra i locali storici e i negozi di Quinta Camacho e Chapinero.
+                <strong>Mattina (08:30):</strong> Taxi per immergersi nei colori e nella frutta esotica del Mercato di Paloquemao.<span class="lp-tag">lonley p.64</span><br>
+                <strong>Pomeriggio:</strong> Spostamento definitivo a Nord. Visita alle gallerie d'arte del Barrio San Felipe e, a seguire, passeggiata/cena tra i locali storici e i negozi di Quinta Camacho e Chapinero.<span class="lp-tag">lonley p.69</span>
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Plaza+de+Mercado+Paloquemao" target="_blank" class="btn btn-map">📍 Mappa Paloquemao</a>
@@ -295,7 +359,7 @@
         <div class="day-section" style="border-left: 2px dashed #cbd5e1; background-color: #fafafa; padding: 10px 15px; margin-left: 5px; border-radius: 4px;">
             <div class="day-title" style="color: #2980b9;">🔄 Giorno 3 (12-08) - Opzione B (Miniera di Sale)</div>
             <div class="day-content">
-                <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla spettacolare Cattedrale di Sale di Zipaquirá, una chiesa sotterranea ricavata all'interno di una miniera di sale attiva. Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<br>
+                <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla spettacrale Cattedrale di Sale di Zipaquirá, una chiesa sotterranea ricavata all'interno di una miniera di sale attiva. Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<span class="lp-tag">lonley p.78</span><br>
                 <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord per la passeggiata e la cena tra i vicoli inglesi di Quinta Camacho e Chapinero (saltando Paloquemao e San Felipe).
             </div>
             <div class="btn-container">
@@ -356,7 +420,10 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (16-08)</div>
-            <div class="day-content">Arrivo verso mezzanotte del giorno prima. Mattina: tour della Valle del Cocora. Non occorre prenotare prima, le jeep si prendono dalla piazza centrale (consigliato l'operatore Gran Colombia Tour).</div>
+            <div class="day-content">
+                Arrivo verso mezzanotte del giorno prima.<br>
+                <strong>Mattina:</strong> tour della Valle del Cocora.<span class="lp-tag">lonley p.123</span> Non occorre prenotare prima, le jeep si prendono dalla piazza centrale (consigliato l'operatore Gran Colombia Tour).
+            </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Valle+del+Cocora" target="_blank" class="btn btn-map">📍 Mappa Cocora</a>
                 <a href="https://www.grancolombiatours.com/" target="_blank" class="btn btn-info">📖 Info Valle</a>
@@ -365,7 +432,7 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 2 (17-08)</div>
-            <div class="day-content">Mattina: Il Mirador, a seguire visita del borgo e di Calle Real. Pomeriggio: Tour in una Finca Cafetera tradizionale.</div>
+            <div class="day-content"><strong>Mattina:</strong> Il Mirador, a seguire visita del borgo e di Calle Real.<span class="lp-tag">lonley p.120</span> Pomeriggio: Tour in una Finca Cafetera tradizionale.<span class="lp-tag">lonley p.124</span></div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Mirador+de+Salento" target="_blank" class="btn btn-map">📍 Mappa Mirador</a>
                 <a href="https://www.coffeeaxis.org/" target="_blank" class="btn btn-info">📖 Storia del Caffè</a>
@@ -381,10 +448,18 @@
             🚌 <strong>Arrivo:</strong> 18-08 ore 05:00 | 🛫 <strong>Volo Santa Marta:</strong> 20-08 ore 06:43 | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank">Landmark Hotel</a>
         </div>
 
+        <!-- Box di Attenzione Bagaglio da Stiva -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 text-amber-900 p-3.5 rounded-r-md text-sm font-medium mb-5 flex items-start gap-2.5 shadow-xs">
+            <span class="text-base leading-none mt-0.5">⚠️</span>
+            <div>
+                <strong class="font-bold">Attenzione:</strong> va aggiunto il bagaglio da stiva alla prenotazione aerea.
+            </div>
+        </div>
+
         <div class="day-section">
             <div class="day-title">Giorno 1 (18-08)</div>
             <div class="day-content">
-                <strong>Mattina:</strong> Centro Storico, Piazza Botero e il Museo de Antioquia.<br>
+                <strong>Mattina:</strong> Centro Storico, Piazza Botero e il Museo de Antioquia.<span class="lp-tag">lonley p.90</span><br>
                 <strong>Pomeriggio:</strong> Verso le 13:00 metro fino a San Javier per il tour della Comuna 13 delle 14:00. A seguire, cabinovia (Metrocable) e rientro verso El Poblado o Laureles per la sera.
             </div>
             <div class="btn-container">
@@ -397,7 +472,7 @@
         <div class="day-section">
             <div class="day-title">Giorno 2 (19-08)</div>
             <div class="day-content">
-                Tutto il giorno: gita a Guatapé. I bus partono dal Terminal del Norte (Metro Caribe) con Sotra San Vicente o Sootransviate ogni 20-30 min. Chiedi di scendere a "La Piedra" per la roccia (El Peñol), poi tuk-tuk fino al villaggio.
+                Tutto il giorno: gita a Guatapé. I bus partono dal Terminal del Norte (Metro Caribe) con Sotra San Vicente o Sootransviate ogni 20-30 min. Chiedi di scendere a "La Piedra" per la roccia (El Peñol), poi tuk-tuk fino al villaggio.<span class="lp-tag">lonley p.106</span>
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Piedra+del+Penol" target="_blank" class="btn btn-map">📍 Mappa El Peñol</a>
@@ -417,7 +492,7 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (20-08)</div>
-            <div class="day-content">Tutto il giorno: Mare a Bahía Concha (Parco Tayrona) raggiungibile in taxi o tramite escursione programmata.</div>
+            <div class="day-content"><strong>Tutto il giorno:</strong> Mare a Bahía Concha (Parco Tayrona) raggiungibile in taxi o tramite escursione programmata.<span class="lp-tag">lonley p.227</span></div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Bahia+Concha+Santa+Marta" target="_blank" class="btn btn-map">📍 Mappa Bahía Concha</a>
                 <a href="https://parquesnacionales.gov.co/parques/parco-nacional-natural-tayrona/" target="_blank" class="btn btn-info">📖 Info Tayrona</a>
@@ -439,7 +514,7 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 3 (22-08)</div>
-            <div class="day-content">Mattina: partenza per Cartagena con trasporto privato.</div>
+            <div class="day-content"><strong>Mattina:</strong> partenza per Cartagena con trasporto privato.</div>
         </div>
     </div>
 
@@ -448,12 +523,12 @@
         <div class="card-title">🧱 Cartagena (22 - 24 Ago)</div>
 
         <div class="transport-box">
-            🛫 <strong>Volo Finale:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
+            🛬 <strong>Volo Final:</strong> 24-08 ore 17:25 | 🚗 <strong>Arrivo:</strong> 22-08 tarda mattinata | 🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank">Hotel Don Pedro De Heredia</a>
         </div>
 
         <div class="day-section">
             <div class="day-title">Giorno 1 (22-08)</div>
-            <div class="day-content">Pomeriggio: Città Murata meridionale (Torre del Reloj, Plaza Bolívar) e tramonto spettacolare al Café del Mar. Serata in centro storico.</div>
+            <div class="day-content"><strong>Pomeriggio:</strong> Città Murata meridionale (Torre del Reloj, Plaza Bolívar) e tramonto spettacolare al Café del Mar.<span class="lp-tag">lonley p.213</span> Serata in centro storico.</div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Cafe+del+Mar+Cartagena" target="_blank" class="btn btn-map">📍 Mappa Café del Mar</a>
                 <a href="https://www.cafedelmarcartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Locale</a>
@@ -465,7 +540,7 @@
             <div class="day-title">Giorno 2 (23-08)</div>
             <div class="day-content">
                 <strong>Mattina:</strong> Visita del rione San Diego (possibilità di free tour con Civitatis).<br>
-                <strong>Pomeriggio:</strong> Esplorazione del rione Getsemaní.<br>
+                <strong>Pomeriggio:</strong> Esplorazione del rione Getsemaní.<span class="lp-tag">lonley p.214</span><br>
                 <strong>Sera:</strong> Cena e movida in Plaza de La Trinidad.
             </div>
             <div class="btn-container">
@@ -476,7 +551,7 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 3 (24-08)</div>
-            <div class="day-content"><strong>Mattina:</strong> Visita alle fortificazioni del Castillo de San Felipe. Nel pomeriggio, trasferimento e partenza alle ore 17:25.</div>
+            <div class="day-content"><strong>Mattina:</strong> Visita alle fortificazioni del Castillo de San Felipe.<span class="lp-tag">lonley p.208</span> Nel pomeriggio, trasferimento e partenza alle ore 17:25.</div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Castillo+de+San+Felipe+de+Barajas" target="_blank" class="btn btn-map">📍 Mappa Castello</a>
                 <a href="https://fortificacionescartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Fortezza</a>
@@ -485,6 +560,102 @@
     </div>
 
 </div>
+
+<!-- Script logici per Orologi e Convertitore -->
+<script>
+    let isEurToCop = true;
+    let exchangeRate = 3835; // Tasso storico di sicurezza aggiornato
+
+    function updateClocks() {
+        const timeOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+
+        const bogotaFormatter = new Intl.DateTimeFormat('it-IT', { ...timeOptions, timeZone: 'America/Bogota' });
+        document.getElementById('bogota-clock').innerText = bogotaFormatter.format(new Date());
+
+        const romaFormatter = new Intl.DateTimeFormat('it-IT', { ...timeOptions, timeZone: 'Europe/Rome' });
+        document.getElementById('roma-clock').innerText = romaFormatter.format(new Date());
+    }
+    
+    // Recupero asincrono del tasso di cambio ufficiale
+    async function fetchLiveExchangeRate() {
+        try {
+            const response = await fetch('https://open.er-api.com/v6/latest/EUR');
+            if (!response.ok) throw new Error('Errore di rete');
+            const data = await response.json();
+            
+            if (data && data.rates && data.rates.COP) {
+                exchangeRate = Math.round(data.rates.COP);
+                updateRateText(true);
+                calculateCurrency();
+            }
+        } catch (error) {
+            console.error("Impossibile recuperare il tasso in tempo reale, utilizzo valore storico.", error);
+            updateRateText(false);
+            calculateCurrency();
+        }
+    }
+
+    function updateRateText(isLive) {
+        const textEl = document.getElementById('exchange-rate-text');
+        if (isLive) {
+            textEl.innerHTML = `Tasso ufficiale aggiornato: 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP`;
+        } else {
+            textEl.innerHTML = `Tasso indicativo (storico): 1 EUR = ${exchangeRate.toLocaleString('it-IT')} COP`;
+        }
+    }
+
+    function calculateCurrency() {
+        const input = document.getElementById('currency-input');
+        const output = document.getElementById('currency-output');
+        
+        let value = parseFloat(input.value);
+        if (isNaN(value) || value < 0) {
+            output.innerText = isEurToCop ? "0 COP" : "0,00 €";
+            return;
+        }
+        
+        if (isEurToCop) {
+            const converted = Math.round(value * exchangeRate);
+            output.innerText = converted.toLocaleString('it-IT') + " COP";
+        } else {
+            const converted = value / exchangeRate;
+            output.innerText = converted.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+        }
+    }
+
+    function toggleCurrencyDirection() {
+        isEurToCop = !isEurToCop;
+        
+        const title = document.getElementById('converter-title');
+        const inputSymbol = document.getElementById('input-symbol');
+        const inputEl = document.getElementById('currency-input');
+        
+        if (isEurToCop) {
+            title.innerText = "Cambio Valuta (EUR → COP)";
+            inputSymbol.innerText = "€";
+            inputEl.value = "1";
+        } else {
+            title.innerText = "Cambio Valuta (COP → EUR)";
+            inputSymbol.innerText = "COP";
+            inputEl.value = "50000";
+        }
+        
+        calculateCurrency();
+    }
+
+    // Configurazione dei timer e caricamenti iniziali
+    setInterval(updateClocks, 1000);
+    updateClocks();
+    
+    // Mostra subito il tasso storico impostato como base e prova ad aggiornarlo via rete
+    updateRateText(false);
+    fetchLiveExchangeRate();
+</script>
 
 </body>
 </html>
