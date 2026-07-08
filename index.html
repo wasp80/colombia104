@@ -117,7 +117,7 @@
             padding: 25px;
             border-left: 6px solid #e67e22;
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 0px;
         }
         .card-title {
             font-size: 1.4em;
@@ -132,7 +132,7 @@
             gap: 10px;
         }
 
-        /* STRUTTURA CONNETTORE GRAFICO */
+        /* STRUTTURA CONNETTORE GRAFICO PERFETTO */
         .travel-connector {
             display: flex;
             flex-direction: column;
@@ -141,17 +141,15 @@
             margin: 0;
             padding: 25px 0;
         }
-        /* La linea verticale che unisce le due città */
         .travel-connector::before {
             content: '';
             position: absolute;
             top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(to bottom, #cbd5e1 30%, #94a3b8 50%, #cbd5e1 70%);
+            background: linear-gradient(to bottom, #cbd5e1 0%, #94a3b8 50%, #cbd5e1 100%);
             z-index: 1;
         }
-        /* Il box/badge del viaggio centrato sulla linea */
         .travel-badge {
             position: relative;
             z-index: 2;
@@ -205,7 +203,6 @@
             margin-top: 8px;
             margin-bottom: 5px;
         }
-        /* Stile dei Pulsanti Ottimizzati per Mobile */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -232,7 +229,6 @@
         .btn-white:hover {
             background-color: #f8fafc;
         }
-        /* Elemento grafico per i riferimenti Lonely Planet */
         .lp-tag {
             display: inline-block;
             font-style: italic;
@@ -245,6 +241,18 @@
             border-radius: 4px;
             margin-left: 4px;
             vertical-align: middle;
+        }
+        /* Sezione per l'immagine finale rimpicciolita e trasparente */
+        .bottom-image-container {
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+        .bottom-image {
+            max-width: 220px; /* Ridotta del ~40% */
+            height: auto;
+            display: inline-block;
+            mix-blend-mode: multiply; /* Rimuove lo sfondo bianco su sfondi chiari */
         }
     </style>
 </head>
@@ -291,7 +299,7 @@
     </div>
 
     <!-- WIDGET INFO UTILI: METEO & CAMBIO VALUTA -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4 text-slate-800">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6 text-slate-800">
         <div class="bg-gradient-to-br from-slate-50 to-blue-50 border border-blue-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
             <div>
                 <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-2">Confronto Fuso Orario</span>
@@ -391,7 +399,7 @@
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Plaza+de+Mercado+Paloquemao" target="_blank" class="btn btn-map">📍 Mappa Paloquemao</a>
                 <a href="https://www.tripadvisor.it/Attraction_Review-g294074-d3603957-Reviews-Plaza_de_Mercado_de_Paloquemao-Bogota.html" target="_blank" class="btn btn-info">📖 Info Mercato</a>
-                <a href="https://www.tripadvisor.it/Attraction_Review-g294074-d13941423-Reviews-Barrio_San_Felipe-Bogota.html" target="_blank" class="btn btn-info">📖 Info San Felipe</a>
+                <a href="https://www.tripadvisor.it/Attraction_Review-g13941423-Reviews-Barrio_San_Felipe-Bogota.html" target="_blank" class="btn btn-info">📖 Info San Felipe</a>
             </div>
         </div>
 
@@ -399,7 +407,7 @@
             <div class="day-title" style="color: #2980b9;">🔄 Giorno 3 (12-08) - Opzione B (Miniera di Sale)</div>
             <div class="day-content">
                 <strong>Mattina e Pomeriggio (08:30 - 15:30):</strong> Escursione fuori porta alla Cattedrale di Sale di Zipaquirá.<span class="lp-tag">lonley p.78</span> Il tragitto richiede circa 1 ora e mezza a tratta dal Nord di Bogotà.<br>
-                <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord per passeggiata and cena a Quinta Camacho e Chapinero.
+                <strong>Tardo Pomeriggio e Sera:</strong> Rientro in città direttamente a Nord for passeggiata and cena a Quinta Camacho e Chapinero.
             </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Catedral+de+Sal+Zipaquira" target="_blank" class="btn btn-map">📍 Mappa Miniera</a>
@@ -412,7 +420,7 @@
     <!-- CONNETTORE 1: BOGOTÀ -> LETICIA -->
     <div class="travel-connector">
         <div class="travel-badge">
-            ✈️ Volo per Leticia | 13-08 ore 08:55
+            ✈️ Volo per Leticia | 13-08 ore 06:50 ➔ Arrivo ore 08:55
         </div>
     </div>
 
@@ -436,7 +444,7 @@
                 Colazione e partenza per Altamira:
                 <ul>
                     <li>Camminata nella giungla del ceiba gigante</li>
-                    <li>Pranzo tradizionale</li>
+                    <li>Pranzo transitional</li>
                     <li>Visita al lago del loto amazzonico (Victoria Amazonica)</li>
                     <li>Ritorno a Mocagua e cena</li>
                 </ul>
@@ -453,10 +461,11 @@
         </div>
     </div>
 
-    <!-- CONNETTORE 2: LETICIA -> SALENTO -->
+    <!-- CONNETTORE 2: LETICIA -> PEREIRA / SALENTO -->
     <div class="travel-connector">
         <div class="travel-badge">
-            🛫 Volo per Salento (via Bogotà/Pereira) | 15-08 ore 17:45
+            🛫 Volo per Pereira (con scalo a Bogotà) | 15-08 ore 17:50 ➔ Arrivo ore 21:55 <br>
+            <span class="text-xs font-normal text-slate-500">🚖 Spostamento: Da Pereira a Salento in Taxi</span>
         </div>
     </div>
 
@@ -468,7 +477,7 @@
         <div class="day-section">
             <div class="day-title">Giorno 1 (16-08)</div>
             <div class="day-content">
-                Arrivo verso mezzanotte del giorno prima.<br>
+                Arrivo in hotel a tarda sera (via taxi da Pereira).<br>
                 <strong>Mattina:</strong> tour della Valle del Cocora.<span class="lp-tag">lonley p.123</span> Non occorre prenotare prima, le jeep si prendono dalla piazza centrale (consigliato l'operatore Gran Colombia Tour).
             </div>
             <div class="btn-container">
@@ -496,7 +505,7 @@
 
     <!-- 4. MEDELLÍN -->
     <div class="card" id="medellin">
-        <div class="card-title">🚡 Medellín (18 - 20 Ago)</div>
+        <div class="card-title">𚡡 Medellín (18 - 20 Ago)</div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank" class="text-blue-600 underline">Landmark Hotel</a></div>
 
         <div class="day-section">
@@ -528,7 +537,7 @@
     <!-- CONNETTORE 4: MEDELLÍN -> SANTA MARTA -->
     <div class="travel-connector">
         <div class="travel-badge attention">
-            🛫 Volo per Santa Marta | 20-08 ore 06:43<br>
+            🛫 Volo per Santa Marta | 20-08 ore 06:43 ➔ Arrivo ore 08:02<br>
             <span class="text-xs text-red-600">⚠️ Nota: Ricordati di aggiungere il bagaglio da stiva alla prenotazione!</span>
         </div>
     </div>
@@ -558,6 +567,11 @@
                 <a href="https://www.museobolivariano.org.co/" target="_blank" class="btn btn-info">📖 Info Sito Storico</a>
                 <a href="https://www.civitatis.com/it/santa-marta/free-tour-santa-marta/" target="_blank" class="btn btn-info">📖 Dettagli Free Tour</a>
             </div>
+        </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (22-08)</div>
+            <div class="day-content">Checkout e partenza per Cartagena.</div>
         </div>
     </div>
 
@@ -598,12 +612,27 @@
 
         <div class="day-section">
             <div class="day-title">Giorno 3 (24-08)</div>
-            <div class="day-content"><strong>Mattina:</strong> Visita al Castillo de San Felipe.<span class="lp-tag">lonley p.208</span> Pomeriggio: trasferimento in aeroporto per il volo finale delle ore 17:25.</div>
+            <div class="day-content">
+                <strong>Mattina:</strong> Visita al Castillo de San Felipe.<span class="lp-tag">lonley p.208</span><br>
+                <strong>Pomeriggio:</strong> preparazione per il rientro in Italia.
+            </div>
             <div class="btn-container">
                 <a href="https://maps.google.com/?q=Castillo+de+San+Felipe+de+Barajas" target="_blank" class="btn btn-map">📍 Mappa Castello</a>
                 <a href="https://fortificacionescartagena.com.co/" target="_blank" class="btn btn-info">📖 Info Fortezza</a>
             </div>
         </div>
+    </div>
+
+    <!-- CONNETTORE FINALE DI RITORNO IN ITALIA -->
+    <div class="travel-connector">
+        <div class="travel-badge">
+            🛫 Volo Internazionale di Ritorno | 24-08 ore 17:25 ➔ Rientro in Italia 🇮🇹
+        </div>
+    </div>
+
+    <!-- BOX CON IMMAGINE SCATOLE DI CARTONE SPECIFICA E RIMPICCIOLITA -->
+    <div class="bottom-image-container">
+        <img src="https://raja.scene7.com/is/image/Raja/products/scatole-cartone-due-onde-avana-raja-38x18x20-cm_CAD11AIT.jpg?image=M_CAD50_R_A31_1012_F$default$&hei=600&wid=600&fmt=jpg&qlt=85,0&resMode=sharp2&op_usm=1.75,0.3,2,0" alt="Scatole di cartone Raja" class="bottom-image">
     </div>
 
 </div>
