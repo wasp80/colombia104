@@ -129,7 +129,18 @@
             padding-bottom: 10px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 10px;
+        }
+        .weather-badge {
+            font-size: 0.65em;
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
         }
 
         /* STRUTTURA CONNETTORE GRAFICO PERFETTO */
@@ -249,10 +260,10 @@
             margin-bottom: 20px;
         }
         .bottom-image {
-            max-width: 220px; /* Ridotta del ~40% */
+            max-width: 220px;
             height: auto;
             display: inline-block;
-            mix-blend-mode: multiply; /* Rimuove lo sfondo bianco su sfondi chiari */
+            mix-blend-mode: multiply;
         }
     </style>
 </head>
@@ -298,23 +309,35 @@
         </div>
     </div>
 
-    <!-- WIDGET INFO UTILI: METEO & CAMBIO VALUTA -->
+    <!-- WIDGET INFO UTILI: COPERTURA ORARIA & CAMBIO VALUTA -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6 text-slate-800">
         <div class="bg-gradient-to-br from-slate-50 to-blue-50 border border-blue-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
             <div>
-                <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-2">Confronto Fuso Orario</span>
-                <div class="grid grid-cols-2 gap-4 border-b border-blue-100 pb-2 mb-2 text-center">
+                <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-2">Fuso Orario & Contatti</span>
+                <div class="grid grid-cols-2 gap-4 text-center mb-3">
                     <div class="border-r border-blue-100 pr-2">
                         <p class="text-xs font-bold text-slate-500 uppercase">🇨🇴 Bogotà</p>
                         <div id="bogota-clock" class="text-xl font-black tracking-tight text-blue-900 my-0.5">--:--:--</div>
+                        <span class="text-[10px] text-blue-600 font-bold bg-blue-100 px-1.5 py-0.5 rounded">-7h rispetto all'IT</span>
                     </div>
                     <div>
                         <p class="text-xs font-bold text-slate-500 uppercase">🇮🇹 Roma</p>
                         <div id="roma-clock" class="text-xl font-black tracking-tight text-blue-900 my-0.5">--:--:--</div>
+                        <span class="text-[10px] text-slate-500 font-medium">Ora Solare/Legale</span>
+                    </div>
+                </div>
+                <div class="border-t border-blue-100 pt-2 mt-2 flex justify-around text-left">
+                    <div class="text-center">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Prefisso</span>
+                        <span class="text-xs font-bold text-slate-700">📞 🇨🇴 +57</span>
+                    </div>
+                    <div class="border-r border-blue-100"></div>
+                    <div class="text-center">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Emergenze</span>
+                        <span class="text-xs font-bold text-red-600">🚨 123</span>
                     </div>
                 </div>
             </div>
-            <p class="text-[11px] text-slate-500 font-medium text-center">Media Agosto a Bogotà: 14°C • Nuvoloso / Pioggia</p>
         </div>
 
         <div class="bg-gradient-to-br from-slate-50 to-emerald-50 border border-emerald-100 rounded-xl p-5 shadow-md flex flex-col justify-between">
@@ -363,7 +386,10 @@
 
     <!-- 1. BOGOTÀ -->
     <div class="card" id="bogota">
-        <div class="card-title">📍 Bogotà (10 - 13 Ago)</div>
+        <div class="card-title">
+            <span>📍 Bogotà (10 - 13 Ago)</span>
+            <span class="weather-badge">⛅ 10°C / 19°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=GHL+Hotel+Tequendama+Bogota" target="_blank" class="text-blue-600 underline">GHL Hotel Tequendama Bogota</a></div>
         
         <div class="day-section">
@@ -414,7 +440,10 @@
 
     <!-- 2. LETICIA -->
     <div class="card" id="leticia">
-        <div class="card-title">🌳 Leticia (13 - 15 Ago)</div>
+        <div class="card-title">
+            <span>🌳 Leticia (13 - 15 Ago)</span>
+            <span class="weather-badge">🌧️ 22°C / 31°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.app.goo.gl/V5XFwBFVw5Mq7BJo8" target="_blank" class="text-blue-600 underline">La Ceiba Amazonas</a></div>
 
         <div class="day-section">
@@ -433,7 +462,7 @@
                 <ul>
                     <li>Camminata nella giungla del ceiba gigante</li>
                     <li>Pranzo transitional</li>
-                    <li>Visita al lago del loto amazzonico (Victoria Amazonica)</li>
+                    <li>Visita al lago del loto amazonico (Victoria Amazonica)</li>
                     <li>Ritorno a Mocagua e cena</li>
                 </ul>
             </div>
@@ -459,7 +488,10 @@
 
     <!-- 3. SALENTO -->
     <div class="card" id="salento">
-        <div class="card-title">☕ Salento (15 - 17 Ago)</div>
+        <div class="card-title">
+            <span>☕ Salento (15 - 17 Ago)</span>
+            <span class="weather-badge">🌦️ 14°C / 24°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+El+Mirador+del+Cocora+Salento" target="_blank" class="text-blue-600 underline">Hotel El Mirador del Cocora</a></div>
 
         <div class="day-section">
@@ -497,7 +529,10 @@
 
     <!-- 4. MEDELLÍN -->
     <div class="card" id="medellin">
-        <div class="card-title">𚡡 Medellín (18 - 20 Ago)</div>
+        <div class="card-title">
+            <span>🛸 Medellín (18 - 20 Ago)</span>
+            <span class="weather-badge">⛅ 17°C / 28°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Landmark+Hotel+Medellin" target="_blank" class="text-blue-600 underline">Landmark Hotel</a></div>
 
         <div class="day-section">
@@ -524,6 +559,16 @@
                 <a href="https://www.tripadvisor.it/Attraction_Review-g1581452-d4102237-Reviews-Guatape-Guatape_Antioquia_Department.html" target="_blank" class="btn btn-info">📖 Info Guatapé</a>
             </div>
         </div>
+
+        <div class="day-section">
+            <div class="day-title">Giorno 3 (20-08) - Attività di Partenza e Saluto a Medellín</div>
+            <div class="day-content">
+                <strong>Mattina Presto:</strong> Sveglia all'alba, checkout dall'hotel e trasferimento programmato in taxi/Uber verso l'Aeroporto Internazionale José María Córdova (MDE). Il tragitto richiede circa 45-60 minuti attraverso il tunnel stradale. Arrivo in aeroporto in tempo utile per le procedure d'imbarco del volo mattutino.
+            </div>
+            <div class="btn-container">
+                <a href="https://maps.google.com/?q=Aeropuerto+Internacional+Jose+Maria+Cordova" target="_blank" class="btn btn-map">📍 Mappa Aeroporto MDE</a>
+            </div>
+        </div>
     </div>
 
     <!-- CONNETTORE 4: MEDELLÍN -> SANTA MARTA -->
@@ -536,7 +581,10 @@
 
     <!-- 5. SANTA MARTA -->
     <div class="card" id="santamarta">
-        <div class="card-title">🏖️ Santa Marta (20 - 22 Ago)</div>
+        <div class="card-title">
+            <span>🏖️ Santa Marta (20 - 22 Ago)</span>
+            <span class="weather-badge">☀️ 24°C / 32°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Senda+Watapuy+Santa+Marta" target="_blank" class="text-blue-600 underline">Senda Watapuy</a></div>
 
         <div class="day-section">
@@ -562,21 +610,31 @@
         </div>
 
         <div class="day-section">
-            <div class="day-title">Giorno 3 (22-08) - Saluto alla Costa e Rotta verso la Perla dei Caraibi</div>
-            <div class="day-content">Checkout e partenza per Cartagena.</div>
+            <div class="day-title">Giorno 3 (22-08) - Saluto alla Costa e Organizzazione Trasferimento Privato</div>
+            <div class="day-content">
+                <strong>Mattina (Orario consigliato 08:30 - 09:00):</strong> Checkout dal Senda Watapuy e partenza in auto privata per Cartagena.<br>
+                <strong>Dettagli di Viaggio:</strong> Il tragitto dura circa <strong>4 ore - 4 ore e mezza</strong> (circa 240 km lungo la Troncal del Caribe), a seconda del traffico all'ingresso di Barranquilla e Cartagena.<br>
+                <strong>Costi & Prenotazione:</strong> Il costo medio per una vettura privata adatta a <strong>3 persone con bagagli</strong> si aggira tra i <strong>140€ e i 180€ complessivi</strong> (circa 600.000 - 780.000 COP). Si raccomanda di effettuare la prenotazione con 24-48 ore di anticipo direttamente tramite la reception del proprio hotel per garantire autisti ufficiali e tracciati, oppure utilizzando piattaforme affidabili come <em>Bookaway</em> o servizi di transfer locali verificati.
+            </div>
+            <div class="btn-container">
+                <a href="https://www.bookaway.com/" target="_blank" class="btn btn-info">📖 Verifica su Bookaway</a>
+            </div>
         </div>
     </div>
 
     <!-- CONNETTORE 5: SANTA MARTA -> CARTAGENA -->
     <div class="travel-connector">
         <div class="travel-badge">
-            🚗 Trasporto Privato per Cartagena | 22-08 (Orario flessibile, arrivo in mattinata)
+            🚗 Trasporto Privato per Cartagena | 22-08 (In viaggio lungo la costa caraibica)
         </div>
     </div>
 
     <!-- 6. CARTAGENA -->
     <div class="card" id="cartagena">
-        <div class="card-title">🧱 Cartagena (22 - 24 Ago)</div>
+        <div class="card-title">
+            <span>🧱 Cartagena (22 - 24 Ago)</span>
+            <span class="weather-badge">☀️ 26°C / 32°C</span>
+        </div>
         <div class="mb-4 text-sm text-slate-600 font-medium">🏨 <strong>Hotel:</strong> <a href="https://maps.google.com/?q=Hotel+Don+Pedro+De+Heredia+Cartagena" target="_blank" class="text-blue-600 underline">Hotel Don Pedro De Heredia</a></div>
 
         <div class="day-section">
